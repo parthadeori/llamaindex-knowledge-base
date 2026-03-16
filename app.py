@@ -5,10 +5,16 @@ from index_pipeline import load_documents, create_index, get_query_engine
 st.title("LlamaIndex Knowledge Base Chatbot")
 st.write("Ask questions from your documents")
 
-# Load Documents and Create Index
-documents = load_documents()
-index = create_index(documents)
-query_engine = get_query_engine(index)
+# Add Cache Function
+@st.cache_resource
+def load_index():
+    documents = load_documents()
+    index = create_index(documents)
+    query_engine = get_query_engine(index)
+    return query_engine
+
+# Use Cached Index
+query_engine = load_index()
 
 # Create Input Box
 user_question = st.text_input("Enter your question:")
