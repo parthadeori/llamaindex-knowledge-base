@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 from index_pipeline import load_documents, create_index, get_query_engine
 
@@ -15,6 +16,26 @@ def load_index():
 
 # Use Cached Index
 query_engine = load_index()
+
+# Add File Upload UI
+uploaded_file = st.file_uploader(
+    "Upload a PDF document",
+    type = "pdf"
+)
+
+# Save Uploaded File
+if uploaded_file is not None:
+    file_path = os.path.join("data", uploaded_file.name)
+    
+    with open(file_path, "wb") as f:
+        f.write(uploaded_file.getbuffer())
+
+    st.success("PDF uploaded successfully!")
+
+    # Rebuild Index
+    with st.spinner("Indexing document..."):
+        st.cache_resource.clear()
+        query_engine = load_index()
 
 # Add Chat Memory
 if "messages" not in st.session_state:

@@ -26,7 +26,12 @@ Settings.embed_model = embed_model
 
 # Load Documents
 def load_documents():
-    documents = SimpleDirectoryReader("data").load_data()
+    reader = SimpleDirectoryReader(
+        input_dir = "data",
+        recursive = True
+    )
+
+    documents = reader.load_data()
     return documents
 
 # Create the Vector Index

@@ -1,9 +1,26 @@
+# Environment variables
 .env
+
+# Python cache
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
+
+# Virtual environments
+venv/
+.env/
+
+# Database files
 *.db
 *.sqlite3
+
+# Streamlit config
 .streamlit/
-venv/
+
+# User uploaded files
+data/*.pdf
+
+# OS files
+.DS_Store
+Thumbs.db
